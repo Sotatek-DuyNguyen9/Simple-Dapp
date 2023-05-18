@@ -1,0 +1,17 @@
+.tranfer {
+    // height: 100vh;
+    padding: 40px;
+
+    &__searchbox {
+        display: flex;
+    }
+
+    &__searchbtn {
+        height: 100%;
+    }
+
+    &__helper-text {
+        margin-left: 8px;
+        font-size: 13px;
+    }
+}

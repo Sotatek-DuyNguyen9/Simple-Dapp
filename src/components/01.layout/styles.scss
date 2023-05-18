@@ -1,0 +1,19 @@
+#layout {
+    .header {
+        // position: sticky;
+        // top: 0;
+        // z-index: 1;
+        width: 100%;
+        display: flex;
+        padding-inline: 160px;
+        // align-items: center;
+
+        .header-logo {
+            padding: 12px;
+        }
+    }
+
+    .content {
+        padding: 16px 160px;
+    }
+}
