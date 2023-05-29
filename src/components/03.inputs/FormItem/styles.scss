@@ -1,0 +1,55 @@
+@import 'src/assets/scss/variable.scss';
+// @import 'src/assets/scss/responsive.scss';
+
+.form-item {
+  font-family: 'Helvetica';
+}
+.ant-form-item-label {
+  align-items: center;
+  display: flex;
+  min-width: 80px !important;
+}
+
+.ant-form {
+  font-family: 'Helvetica';
+  .otori-input {
+    input {
+      background: transparent;
+    }
+  }
+  .ant-form-item-explain-error {
+    color: $color-primary-red !important;
+    margin-bottom: 24px;
+    font-size: 13px;
+  }
+
+  .ant-input-affix-wrapper>input.ant-input {
+    font-size: 13px;
+  }
+
+  .ant-input-affix-wrapper-status-error {
+    border: 1px solid $color-primary-red !important;
+    background-color: $color-bg-warning !important;
+  }
+
+  .ant-input-affix-wrapper-focused::before {
+    box-shadow: none !important;
+    outline: none;
+
+    .ant-input-suffix {
+      font-family: 'Helvetica';
+    }
+
+    input::placeholder {
+      // font-size: 0.875rem;
+      font-family: 'Helvetica';
+      color: $color-gray-2;
+    }
+  }
+
+  .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input {
+    background: inherit;
+    box-shadow: none;
+    border: 1px solid $color-primary-red !important;
+  }
+}

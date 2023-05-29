@@ -1,0 +1,41 @@
+@import 'src/assets/scss/variable.scss';
+@import 'src/assets/scss/font-size.scss';
+
+.outlined-default {
+  border-radius: 5px;
+  font-size: $heading-7;
+  font-weight: 600;
+  font-family: 'Helvetica';
+  border: 1px solid $color-white;
+  color: $color-white;
+  background: none;
+
+  &:hover {
+    color: $color-white;
+    border: 1px solid $color-white;
+    background: none;
+  }
+}
+
+.outlined-black {
+  border: 1px solid $color-dark;
+  background: none;
+  color: $color-dark;
+}
+
+.outlined-black.ant-btn-loading {
+  &:hover {
+    border-color: $color-dark  !important;
+    color: $color-dark  !important;
+  }
+}
+
+.outlined-black.ant-btn[disabled],
+.outlined-black.ant-btn[disabled]:hover,
+.outlined-black.ant-btn[disabled]:focus,
+.outlined-black.ant-btn[disabled]:active {
+  border: 1px solid $color-dark;
+  background: none;
+  color: $color-dark;
+  opacity: 0.5;
+}

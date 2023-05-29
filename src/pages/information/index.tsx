@@ -1,129 +1,86 @@
 import React from "react";
 import "./styles.scss";
-import Web3 from "web3";
-import erc20Abi from "../../web3/abis/erc20.json";
 import { useWeb3React } from "@web3-react/core";
-import { injected } from "../../connectors";
-import { Button } from "antd";
+import { Col, Divider, Row } from "antd";
+import { getCoinBalance, getCustomTokenBalance} from "../../share/getInfoToken";
 
-// import { init } from "../../web3/connectors";
+type CustomTokenInfo = {
+  name: string;
+  symbol: string;
+  balance: number;
+  decimals: number;
+  allowance: number;
+  totalSupply: number;
+};
 
 export const Information: React.FC = () => {
-  const [allowance, setAllowance] = React.useState();
   const [coinBalance, setCoinBalance] = React.useState();
-  const [customTokenBalance, setCustomTokenBalance] = React.useState();
-  const { active, account, library, activate, deactivate } = useWeb3React();
-
-  async function connect() {
-    try {
-      await activate(injected);
-
-      const balance = await library?.getBalance(account as any);
-      console.log(balance);
-    } catch (ex) {
-      console.log(ex);
-    }
-  }
-
-  async function disconnect() {
-    try {
-      deactivate();
-      setCoinBalance(0 as any);
-      setCustomTokenBalance(0 as any);
-    } catch (ex) {
-      console.log(ex);
-    }
-  }
-
-  const getCoinBalance = async () => {
-    if (!account) return;
-    (window as any).ethereum
-      .request({
-        method: "eth_getBalance",
-        params: [String(account)],
-      })
-      .then((balance: any) => {
-        setCoinBalance((Web3 as any).utils.fromWei(balance));
-      })
-      .catch((err: any) => console.log(err));
-  };
-
-  const getCustomTokenBalance = async () => {
-    if (!account) return;
-    const web3 = new Web3((window as any).ethereum);
-
-    const erc20Contract = new web3.eth.Contract(
-      erc20Abi as any,
-      "0x8d1E1b97957DA2012E6a5E96C3af3aFEbf86D85E"
-    );
-
-    erc20Contract.methods
-      .balanceOf(account)
-      .call()
-      .then((balance: any) => {
-        // setCustomTokenBalance((Web3 as any).utils.fromWei(balance));
-        setCustomTokenBalance((Web3 as any).utils.fromWei(balance));
-      })
-      .catch((err: any) => console.log(err));
-  };
-
-  const getAllowance = async () => {
-    if (!account) return;
-    const web3 = new Web3((window as any).ethereum);
-
-    const erc20Contract = new web3.eth.Contract(
-      erc20Abi as any,
-      "0x8d1E1b97957DA2012E6a5E96C3af3aFEbf86D85E"
-    );
-
-    erc20Contract.methods.allowance(account, "0x8d1E1b97957DA2012E6a5E96C3af3aFEbf86D85E").call()
-        .then((balance: any) => {
-          setAllowance(balance);
-        })
-        .catch((err: any) => console.log(err));
-  };
+  const [customTokenInfo, setCustomTokenInfo] = React.useState<CustomTokenInfo>();
+  const { active, account } = useWeb3React();
 
   React.useEffect(() => {
-    getAllowance();
-    getCoinBalance();
-    getCustomTokenBalance();
-  }, [account]);
+    if (!active) return;
 
-  // React.useEffect(() => {
-  //   const connectWalletOnPageLoad = async () => {
-  //     if (localStorage?.getItem('isWalletConnected') === 'true') {
-  //       try {
-  //         await activate(injected)
-  //         localStorage.setItem('isWalletConnected', true)
-  //       } catch (ex) {
-  //         console.log(ex)
-  //       }
-  //     }
-  //   }
-  //   connectWalletOnPageLoad()
-  // }, [])
+    const init = async () => {
+      const customInfo = await getCustomTokenBalance(account as string);
+      const nativeBalance = await getCoinBalance(account as string);
+      setCoinBalance(nativeBalance);
+      setCustomTokenInfo(customInfo);
+    };
+
+    init();
+  }, [account]);
 
   return (
     <div className="information">
-      <Button type="primary" className="information__btn" onClick={connect}>
-        Connect to MetaMask
-      </Button>
-
-      <Button type="primary" onClick={disconnect}>
-        Disconnect
-      </Button>
-
-      {active ? (
-        <div>
-          <h3>Connected with Metamask</h3>
-          <h3>Address: {account}</h3>
-          <h3>Allowance: {allowance}</h3>
-          <h3>Coin balance: {coinBalance}</h3>
-          <h3>Custom token balance: {customTokenBalance}</h3>
-        </div>
-      ) : (
-        <h3>Not connected</h3>
-      )}
+      <div>
+        {/* <h1 className="title-container">Account information</h1> */}
+        <Divider orientation="left" className="primary-divider">
+          Native token
+        </Divider>
+        <Row>
+          <Col span={2}>
+            <p className="primary-text">Address:</p>
+          </Col>
+          <Col span={10}>
+            <p className="hightlight-text">{account}</p>
+          </Col>
+          <Col span={2}>
+            <p className="primary-text">Balance: </p>
+          </Col>
+          <Col span={10}>
+            <p className="hightlight-text">{coinBalance} TBNB</p>
+          </Col>
+        </Row>
+        <Divider orientation="left" className="primary-divider">Custom token</Divider>
+        <Row>
+          <Col span={2}>
+            <p className="primary-text">Name:</p>
+          </Col>
+          <Col span={10}>
+            <p className="hightlight-text">{customTokenInfo?.name}</p>
+          </Col>
+          <Col span={2}>
+            <p className="primary-text">Total supply: </p>
+          </Col>
+          <Col span={10}>
+            <p className="hightlight-text">{customTokenInfo?.totalSupply} {customTokenInfo?.symbol}</p>
+          </Col>
+          
+          <Col span={2}>
+            <p className="primary-text">Allowance: </p>
+          </Col>
+          <Col span={10}>
+            <p className="hightlight-text">{customTokenInfo?.allowance} {customTokenInfo?.symbol}</p>
+          </Col>
+          <Col span={2}>
+            <p className="primary-text">Balance:</p>
+          </Col>
+          <Col span={10}>
+            <p className="hightlight-text">{customTokenInfo?.balance} {customTokenInfo?.symbol}</p>
+          </Col>
+        </Row>
+      </div>
     </div>
   );
 };

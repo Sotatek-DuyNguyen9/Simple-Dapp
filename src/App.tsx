@@ -7,7 +7,9 @@ import Web3 from 'web3';
 import { Web3ReactProvider } from '@web3-react/core'
 
 function getLibrary(provider:any) {
-  return new Web3(provider)
+  const web3 = new Web3(provider);
+
+  return web3;
 }
 
 function App() {

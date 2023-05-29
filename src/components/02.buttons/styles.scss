@@ -1,0 +1,45 @@
+@import 'src/assets/scss/variable.scss';
+@import 'src/assets/scss/font-size.scss';
+
+.button-default {
+	min-height: 42px;
+	min-width: 120px;
+	border-radius: 100px !important;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 10px 24px;
+}
+
+.button-icon {
+	margin-right: 8px;
+	height: 18px;
+	width: 18px;
+}
+
+.ant-btn:focus,
+.ant-btn:hover,
+.ant-btn:active {
+	color: none;
+}
+
+.ant-btn:hover {
+	opacity: 0.8;
+}
+
+.ant-btn[disabled],
+.ant-btn[disabled]:hover,
+.ant-btn[disabled]:focus,
+.ant-btn[disabled]:active {
+	opacity: 0.5;
+}
+
+.ant-btn-loading {
+	opacity: 1 !important;
+	cursor: not-allowed !important;
+}
+
+button[disabled]:hover:enabled {
+	background: $color-dark-6  !important;
+	opacity: 0.4;
+}

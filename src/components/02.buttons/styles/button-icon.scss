@@ -1,0 +1,16 @@
+@import 'src/assets/scss/variable.scss';
+@import 'src/assets/scss/font-size.scss';
+
+.button-icon-default {
+  border: none;
+  border-radius: 5px;
+  font-size: $heading-7;
+  font-weight: 600;
+  font-family: 'Helvetica';
+  color: $color-dark-1;
+  background: $color-primary-yellow;
+  &:hover {
+    color: $color-dark-1 !important;
+    background: $color-primary-yellow !important;
+  }
+}

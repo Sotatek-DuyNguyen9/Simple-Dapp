@@ -1,0 +1,20 @@
+@import 'src/assets/scss/variable.scss';
+@import 'src/assets/scss/font-size.scss';
+
+.input-default {
+  font-family: 'Helvetica';
+  font-style: normal;
+  font-size: $heading-7;
+  line-height: 16px;
+  border-radius: 8px;
+  height: 42px;
+
+  .ant-input {
+    margin-left: 5px;
+    color: $color-dark-2;
+    letter-spacing: -0.02em;
+    font-style: normal;
+    font-weight: 400;
+    cursor: default;
+  }
+}

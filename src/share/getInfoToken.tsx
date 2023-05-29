@@ -7,7 +7,7 @@ export const getCustomTokenBalance = async (accAddress: string) => {
   try {
     const erc20Contract = new web3.eth.Contract(
       erc20Abi as any,
-      "0x8d1E1b97957DA2012E6a5E96C3af3aFEbf86D85E"
+      process.env.REACT_APP_TOKEN_ADDR
     );
     
     const name = await erc20Contract.methods.name().call();
@@ -15,9 +15,11 @@ export const getCustomTokenBalance = async (accAddress: string) => {
     const decimals = await erc20Contract.methods.decimals().call();
     const totalSupply = await erc20Contract.methods.totalSupply().call();
     let balance = await erc20Contract.methods.balanceOf(accAddress).call();
+    const allowance = await erc20Contract.methods.
+                          allowance(accAddress, process.env.REACT_APP_TOKEN_ADDR).call()
     balance = (Web3 as any).utils.fromWei(balance);
     
-    return { name, symbol, decimals, totalSupply, balance };
+    return { name, symbol, decimals, totalSupply, balance, allowance };
   } catch (error) {
     console.log(error);
   }
