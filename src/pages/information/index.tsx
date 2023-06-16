@@ -17,7 +17,7 @@ export const Information: React.FC = () => {
   const [coinBalance, setCoinBalance] = React.useState();
   const [customTokenInfo, setCustomTokenInfo] = React.useState<CustomTokenInfo>();
   const { active, account } = useWeb3React();
-  console.log(active);
+
   React.useEffect(() => {
     if (!active) return;
 
