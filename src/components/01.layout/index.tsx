@@ -99,6 +99,11 @@ const LayoutDefault: React.FC<ILayoutProps> = ({ children }) => {
               <span className="header-nav">Design</span>
             </Link>
           </Menu.Item>
+          <Menu.Item key="nft">
+            <Link to="/nft">
+              <span className="header-nav">NFT</span>
+            </Link>
+          </Menu.Item>
         </Menu>
       </Header>
       <Content className="content">
